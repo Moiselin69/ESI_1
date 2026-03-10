@@ -32,7 +32,7 @@ CREATE TABLE Disco(
     inodes_used_percent DECIMAL(5,2) NOT NULL, -- 6. porcentaje de inodos utilizados
     iops_read INT NOT NULL, -- 7. Total de operaciones de lectura (acumulado)
     iops_write INT NOT NULL, -- 8. Total de operaciones de escritura (acumulado)
-    latency_read_msDECIMAL(10,3) NOT NULL, -- 9. Tiempo total de lectura en ms (acumulado)
+    latency_read_ms DECIMAL(10,3) NOT NULL, -- 9. Tiempo total de lectura en ms (acumulado)
     latency_write_ms DECIMAL(8,2) NOT NULL, -- 10. Tiempo total de escritura en ms (acumulado)
 
     CONSTRAINT pk_disco PRIMARY KEY(fecha_creacion, hostname, device_name),

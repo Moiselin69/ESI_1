@@ -1,10 +1,14 @@
 import psutil
 
 def obtenerFallosPagina():
-    with open('/proc/vmstat', 'r') as f:
-        for line in f:
-            if line.startswith('pgmajfault'):
-                return int(line.split()[1])
+    try:
+        with open('/proc/vmstat', 'r') as f:
+            for line in f:
+                if line.startswith('pgmajfault'):
+                    return int(line.split()[1])
+    except FileNotFoundError:
+        pass
+    return 0
 
 class Memoria:
     def __init__(self):
