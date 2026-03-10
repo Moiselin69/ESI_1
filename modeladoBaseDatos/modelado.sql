@@ -19,35 +19,6 @@ CREATE TABLE Cpu(
 
 )ENGINE=InnoDB;
 
-CREATE TABLE Memoria(
-    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    hostname VARCHAR(50) NOT NULL, 
-
-    ram_total_mb BIGINT NOT NULL, -- 1. ram total de la maquina
-    ram_used_mb BIGINT NOT NULL, -- 2. ram usado de la maquina
-    ram_used_percent DECIMAL(5,2) NOT NULL, -- 3. porcentaje de ram usado
-    swap_total_mb BIGINT NOT NULL, -- 4. espacio de swap total
-    swap_used_mb BIGINT NOT NULL, -- 5. espacio de swap usado
-    swap_used_percent DECIMAL(5,2) NOT NULL, -- 6. porcentaje de swap utilizado
-    cache_used_mb BIGINT NOT NULL, -- 7. cache usado de la maquina
-    cache_used_ram_mb BIGINT NOT NULL, -- 8. porcentaje de ram utilizada para cache
-    page_faults_major INT NOT NULL, -- # 9. fallos de página
-
-    CONSTRAINT pk_memoria PRIMARY KEY(fecha_creacion, hostname)
-)ENGINE=InnoDB;
-
-CREATE TABLE Sistema(
-    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    hostname VARCHAR(50) NOT NULL,
-
-    total_processes INT NOT NULL, -- 1. total de procesos en activo
-    total_threads INT NOT NULL, -- 2. total de hilos en activo
-    active_users INT NOT NULL, -- 3. usuarios que están activos
-    uptime_seconds BIGINT NOT NULL, -- 4. tiempo que lleva encendido el sistema
-
-    CONSTRAINT pk_sistema PRIMARY KEY(fecha_creacion, hostname)
-)ENGINE=InnoDB;
-
 CREATE TABLE Disco(
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     hostname VARCHAR(50) NOT NULL,
@@ -68,7 +39,39 @@ CREATE TABLE Disco(
     INDEX idx_device_name (device_name)
 )ENGINE=InnoDB;
 
-CREATE TABLe Red(
+CREATE TABLE Memoria(
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    hostname VARCHAR(50) NOT NULL, 
+
+    ram_total_mb BIGINT NOT NULL, -- 1. ram total de la maquina
+    ram_used_mb BIGINT NOT NULL, -- 2. ram usado de la maquina
+    ram_used_percent DECIMAL(5,2) NOT NULL, -- 3. porcentaje de ram usado
+    swap_total_mb BIGINT NOT NULL, -- 4. espacio de swap total
+    swap_used_mb BIGINT NOT NULL, -- 5. espacio de swap usado
+    swap_used_percent DECIMAL(5,2) NOT NULL, -- 6. porcentaje de swap utilizado
+    cache_used_mb BIGINT NOT NULL, -- 7. cache usado de la maquina
+    cache_used_ram_mb BIGINT NOT NULL, -- 8. porcentaje de ram utilizada para cache
+    page_faults_major INT NOT NULL, -- # 9. fallos de página
+
+    CONSTRAINT pk_memoria PRIMARY KEY(fecha_creacion, hostname)
+)ENGINE=InnoDB;
+
+CREATE TABLE Procesos(
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    hostname VARCHAR(50) NOT NULL,
+
+    pid INT NOT NULL, -- Identificador del proceso
+    process_name VARCHAR(255) NOT NULL, -- Nombre del proceso (ej. mysql, apache2)
+    
+    cpu_usage_percent DECIMAL(5,2) NOT NULL, -- Porcentaje de uso de CPU
+    ram_usage_mb DECIMAL(8,2) NOT NULL, -- Uso de memoria RAM en MB
+    threads_count INT NOT NULL, -- Cantidad de hilos que está usando el proceso
+
+    CONSTRAINT pk_procesos PRIMARY KEY(fecha_creacion, hostname, pid),
+    INDEX idx_process_name (process_name) -- Índice muy útil para buscar en Grafana procesos concretos
+)ENGINE=InnoDB;
+
+CREATE TABLE Red(
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     hostname VARCHAR(50) NOT NULL,
     interface_name VARCHAR(50) NOT NULL,
@@ -80,4 +83,16 @@ CREATE TABLe Red(
     active_connections INT NOT NULL, -- 5. Las conexiones activas del controlador
 
     CONSTRAINT pk_red PRIMARY KEY(fecha_creacion, hostname, interface_name)
+)ENGINE=InnoDB;
+
+CREATE TABLE Sistema(
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    hostname VARCHAR(50) NOT NULL,
+
+    total_processes INT NOT NULL, -- 1. total de procesos en activo
+    total_threads INT NOT NULL, -- 2. total de hilos en activo
+    active_users INT NOT NULL, -- 3. usuarios que están activos
+    uptime_seconds BIGINT NOT NULL, -- 4. tiempo que lleva encendido el sistema
+
+    CONSTRAINT pk_sistema PRIMARY KEY(fecha_creacion, hostname)
 )ENGINE=InnoDB;
