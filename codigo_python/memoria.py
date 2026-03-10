@@ -8,15 +8,15 @@ def obtenerFallosPagina():
 
 class Memoria:
     def __init__(self):
-        self.ram_total_mb = 0 # ram total de la maquina
-        self.ram_used_mb = 0 # ram usado de la maquina
-        self.ram_used_percent = 0 # porcentaje de ram usado
-        self.swap_total_mb = 0 # espacio de swap total
-        self.swap_used_mb = 0 # espacio de swap usado
-        self.swap_used_percent = 0 # porcentaje de swap utilizado
-        self.cache_used_mb = 0 # cache usado de la maquina
-        self.cache_used_ram_mb = 0 # porcentaje de ram utilizada para cache
-        self.page_faults_major = 0 # fallos de página
+        self.ram_total_mb = 0 # 1. ram total de la maquina
+        self.ram_used_mb = 0 # 2. ram usado de la maquina
+        self.ram_used_percent = 0 # 3. porcentaje de ram usado
+        self.swap_total_mb = 0 # 4. espacio de swap total
+        self.swap_used_mb = 0 # 5. espacio de swap usado
+        self.swap_used_percent = 0 # 6. porcentaje de swap utilizado
+        self.cache_used_mb = 0 # 7. cache usado de la maquina
+        self.cache_used_ram_mb = 0 # 8. porcentaje de ram utilizada para cache
+        self.page_faults_major = 0 # 9. fallos de página
     """
     Major Page Fault: Ocurre cuando el sistema busca un dato en la RAM y no está, 
     teniendo que ir a buscarlo al disco duro (operación lenta).

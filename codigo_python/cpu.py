@@ -2,18 +2,18 @@ import psutil
 
 class CPU:
     def __init__(self):
-        self.cpu_load_percent = 0 # porcentaje de uso de la cpu
-        self.cpu_freq_mhz = 0 # frecuencia de la cpu
-        self.cpu_user_percent = 0 # porcentaje de tiempo que la cpu está con programas de usuario
-        self.cpu_kernel_percent = 0 # porcentaje de tiempo que está la cpu con el kernel
-        self.cpu_iowait_percent  = 0 # porcentaje de tiempo inactivo esperando disco duro
-        self.cpu_steal_percent = 0 # porcentaje de tiempo perdido esperando a que el servidor fisico nos asigne recursos
-        self.cpu_inactive_percent = 0 # porcentaje de tiempo que la cpu estuvo libre, sin hacer nada
-        self.cpu_interrupts  = 0 # Cantidad de interrupciones, ya sean de teclado, de ratón etc
-        self.ctx_switches = 0 # cantidad de cambios de contexto 
-        self.load_avg_1m = 0# los tres signfican los procesos que están exigigiendo atención a la CPU 
-        self.load_avg_5m = 0
-        self.load_avg_15m = 0
+        self.cpu_load_percent = 0 # 1. porcentaje de uso de la cpu
+        self.cpu_freq_mhz = 0 # 2. frecuencia de la cpu
+        self.cpu_user_percent = 0 # 3. porcentaje de tiempo que la cpu está con programas de usuario
+        self.cpu_kernel_percent = 0 # 4. porcentaje de tiempo que está la cpu con el kernel
+        self.cpu_iowait_percent  = 0 # 5. porcentaje de tiempo inactivo esperando disco duro
+        self.cpu_steal_percent = 0 # 6. porcentaje de tiempo perdido esperando a que el servidor fisico nos asigne recursos
+        self.cpu_inactive_percent = 0 # 7. porcentaje de tiempo que la cpu estuvo libre, sin hacer nada
+        self.cpu_interrupts  = 0 # 8. Cantidad de interrupciones, ya sean de teclado, de ratón etc
+        self.ctx_switches = 0 # 9. cantidad de cambios de contexto 
+        self.load_avg_1m = 0 # 10. los tres signfican los procesos que están exigigiendo atención a la CPU 
+        self.load_avg_5m = 0 # 11
+        self.load_avg_15m = 0 # 12
 
     def recolectar_metricas(self): # recoleccion de metricas de cpu
         self.cpu_load_percent = psutil.cpu_percent(interval=1) # Porcentaje de uso de la cpu
